@@ -26,7 +26,8 @@ shinyUI(pageWithSidebar(
                            label = "Specify the kind of data that is uploaded:",
                            choices = list("Raw Data",
                                           "Adjacency Matrix",
-                                          "Edgelist"), selected = "Raw Data"),  
+                                          "Edgelist",
+                                          "Correlation Matrix"), selected = "Raw Data"),  
                
                # Upload file
                fileInput('input', 'Choose file'),
@@ -48,8 +49,18 @@ shinyUI(pageWithSidebar(
                         # use all columns in datafile
                         checkboxInput("allcolumns", "All columns", TRUE))),
                
-               # Are string to be coded as factor objects?
-               checkboxInput("stringfactors", "Strings as factors", FALSE),
+               
+               fluidRow(
+                 column(4,
+                        # Are string to be coded as factor objects?
+                        checkboxInput("stringfactors", "Strings as factors", FALSE)),
+                 
+                 column(4,
+                        numericInput("samplesize",
+                                     label = "Sample size",
+                                     value = 1))),
+               
+               
                
                # Specify coding for NAs
                textInput("missing",

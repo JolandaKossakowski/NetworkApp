@@ -166,6 +166,9 @@ shinyServer(
       if(input$normal == TRUE)
       {
         cor_auto(huge.npn(data()))
+      } else if(input$sortdata == "Correlation Matrix")
+      {
+        data()
       } else  
       {
         cor_auto(data())
@@ -211,7 +214,7 @@ shinyServer(
       if(is.null(data()))
       {
         return(NULL)
-      } else if(input$sortdata == "Raw Data")
+      } else if(input$sortdata == "Raw Data" | input$sortdata == "Correlation Matrix")
       {
         qgraph(norm(),
                layout = lay(), 
@@ -225,7 +228,7 @@ shinyServer(
                vsize = ns(),
                weighted = weight(),
                directed = direct(),
-               sampleSize = nrow(data()),
+               sampleSize = input$samplesize,
                graph = est(),
                threshold = thres(),
                shape = shapenode(),
@@ -280,7 +283,7 @@ shinyServer(
       {
         as.numeric(smallworldness(qgraph(norm(),
                                          graph = est(),
-                                         sampleSize = nrow(data()),
+                                         sampleSize = input$samplesize,
                                          weighted = weight(),
                                          directed = direct(),
                                          threshold = thres(),
@@ -339,7 +342,7 @@ shinyServer(
                  vsize = ns(),
                  weighted = weight(),
                  directed = direct(),
-                 sampleSize = nrow(data()),
+                 sampleSize = input$samplesize,
                  graph = est(),
                  threshold = thres(),
                  shape = shapenode(),
@@ -453,7 +456,7 @@ shinyServer(
       if(input$sortdata == "Raw Data")
       {
         cent <- centralityPlot(qgraph(norm(),
-                                      sampleSize = nrow(data()),
+                                      sampleSize = input$samplesize,
                                       graph = est(),
                                       weighted = weight(),
                                       directed = direct(),
@@ -501,7 +504,7 @@ shinyServer(
           if(input$sortdata == "Raw Data")
           {
             g <- centralityPlot(qgraph(norm(),
-                                       sampleSize = nrow(data()),
+                                       sampleSize = input$samplesize,
                                        graph = est(),
                                        weighted = weight(),
                                        directed = direct(),
@@ -530,7 +533,7 @@ shinyServer(
           if(input$sortdata == "Raw Data")
           {
             g <- centralityPlot(qgraph(norm(),
-                                       sampleSize = nrow(data()),
+                                       sampleSize = input$samplesize,
                                        graph = est(),
                                        weighted = weight(),
                                        directed = direct(),
@@ -621,7 +624,7 @@ shinyServer(
       if(input$sortdata == "Raw Data")
       {
         centralityTable(qgraph(norm(),
-                               sampleSize = nrow(data()),
+                               sampleSize = input$samplesize,
                                graph = est(),
                                weighted = weight(),
                                directed = direct(),
